@@ -26,4 +26,9 @@ public class CardController {
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(cardService.getAll());
     }
+
+    @GetMapping("/getByUserId/{userId}")
+    public ResponseEntity<?> getByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(cardService.getByUserId(userId));
+    }
 }

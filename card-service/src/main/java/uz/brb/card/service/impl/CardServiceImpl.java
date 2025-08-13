@@ -15,6 +15,7 @@ import uz.brb.card.repository.CardRepository;
 import uz.brb.card.service.CardService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +32,7 @@ public class CardServiceImpl implements CardService {
 
             if (!response) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Foydalanuvchi topilmadi: ID = " + cardDto.getUserId());
+                        .body("Foydalanuvchi topilmadi: = " + cardDto.getUserId());
             }
 
             Card card = cardMapper.toEntity(cardDto);
@@ -64,5 +65,15 @@ public class CardServiceImpl implements CardService {
     @Override
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(cardRepository.findAll());
+    }
+
+    @Override
+    public ResponseEntity<?> getByUserId(Long userId) {
+        boolean response = userClient.existsById(userId);
+        if (!response) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Foydalanuvchi topilmadi: = " + userId);
+        }
+        return ResponseEntity.ok(cardRepository.findAllByUserId(userId));
     }
 }

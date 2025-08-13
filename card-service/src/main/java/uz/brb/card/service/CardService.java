@@ -9,4 +9,6 @@ public interface CardService {
     ResponseEntity<?> get(Long id);
 
     ResponseEntity<?> getAll();
+
+    ResponseEntity<?> getByUserId(Long userId);
 }
